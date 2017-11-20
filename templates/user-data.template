@@ -1,0 +1,6 @@
+#cloud-config  
+password: sed_change_password  
+chpasswd: { expire: False }  
+ssh_pwauth: True  
+ssh_authorized_keys: 
+  - sed_change_public_key
