@@ -17,9 +17,11 @@ function downloadImg {
    then
       wget -O ${DIR_NAME}/${VM_NAME}.img "${1}"
    else 
-      local existing_file_check_sum=$(md5sum ${DIR_NAME}/${VM_NAME}.img)
-      if [ "${CHECK_SUM}" == "${existing_file_check_sum}" ]
+      local existing_file_check_sum="$(md5sum -b ${DIR_NAME}/${VM_NAME}.img|awk '{print$1}')"
+      if [[ "${CHECK_SUM}" != "${existing_file_check_sum}" ]]
       then
+	 echo ${CHECK_SUM}
+         echo ${existing_file_check_sum}
          echo wget -O ${DIR_NAME}/${VM_NAME}.img "${1}"
       fi
    fi
@@ -31,7 +33,6 @@ function createUserdata {
    cp templates/user-data.template /tmp/${VM_NAME}/user-data
    PUBLIC_KEY_CONTENT=$(cat ${key_file})
    sed -i "s#sed_change_public_key#${PUBLIC_KEY_CONTENT}#" /tmp/${VM_NAME}/user-data
-   mkdir -p ${DIR_NAME}
    cloud-localds ${DIR_NAME}/user-data.img /tmp/${VM_NAME}/user-data
    rm -rf /tmp/${VM_NAME}/  
 }
@@ -46,5 +47,5 @@ function creatVm {
 }
 
 downloadImg $IMG_LINK 
-createUserdata $SSH_PUBLIC_KEY
-creatVm 
+#createUserdata $SSH_PUBLIC_KEY
+#creatVm 
