@@ -20,9 +20,7 @@ function downloadImg {
       local existing_file_check_sum="$(md5sum -b ${DIR_NAME}/${VM_NAME}.img|awk '{print$1}')"
       if [[ "${CHECK_SUM}" != "${existing_file_check_sum}" ]]
       then
-	 echo ${CHECK_SUM}
-         echo ${existing_file_check_sum}
-         echo wget -O ${DIR_NAME}/${VM_NAME}.img "${1}"
+         wget -O ${DIR_NAME}/${VM_NAME}.img "${1}"
       fi
    fi
 }
