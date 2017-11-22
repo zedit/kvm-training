@@ -1,5 +1,5 @@
 #!/bin/bash
-dfsdfsdf
+dfsdfsdfsdfdsfsdf
 def_link="https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img"
 def_rsa_file="/home/dmitry/.ssh/id_rsa.pub"
 VM_NAME="${1}"
