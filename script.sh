@@ -46,7 +46,7 @@ function createUserdata {
 
 function creatVm {
    virt-install --virt-type=kvm --name ${VM_NAME} \
-                --ram 22024 \
+                --ram 1024 \
                 --vcpus=1 \
                 --noautoconsole \
                 --cdrom=${DIR_NAME}/user-data.img \
