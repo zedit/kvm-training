@@ -1,5 +1,6 @@
 #cloud-config  
+hostname: sed_change_hostname
 chpasswd: { expire: False }  
-ssh_pwauth: True  
+ssh_pwauth: True
 ssh_authorized_keys: 
   - sed_change_public_key
