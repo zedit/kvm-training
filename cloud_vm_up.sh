@@ -11,7 +11,7 @@ CHECK_SUM="99e73c2c09cad6a681b2d372c37f2e11"
 TEMPLATE_FILE="templates/user-data.template"
 
 function downloadImg {
-   echo "HDD size?"
+   echo "HDD size (2Gb default)?"
    read HDD
    if [ ! -e "$DIR_NAME" ]
    then
@@ -47,9 +47,9 @@ function createUserdata {
 }
 
 function creatVm {
-   echo "RAM?"
+   echo "number of RAM in MB's?"
    read RAM
-   echo "CPUS?"
+   echo "number of CPUS cores?"
    read CPUS
    virt-install --virt-type=kvm --name ${VM_NAME} \
                 --ram $RAM \
