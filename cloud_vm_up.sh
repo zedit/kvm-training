@@ -2,7 +2,7 @@
 
 def_link="https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
 def_img="$(pwd)/bionic.img"
-def_rsa_file="/home/$(whoami)/.ssh/id_rsa.pub"
+def_rsa_file="/home/dyevt/.ssh/id_rsa.pub"
 VM_NAME="${1}"
 SSH_PUBLIC_KEY="${3:-$def_rsa_file}"
 IMG_LINK="${2:-$def_link}"
@@ -44,7 +44,7 @@ function createUserdata {
    sed -i "s#sed_change_public_key#${PUBLIC_KEY_CONTENT}#" /tmp/${VM_NAME}/user-data
    sed -i "s#sed_change_hostname#${VM_NAME}#" /tmp/${VM_NAME}/user-data
    cloud-localds ${DIR_NAME}/user-data.img /tmp/${VM_NAME}/user-data
-   rm -rf /tmp/${VM_NAME}/  
+#   rm -rf /tmp/${VM_NAME}/  
 }
 
 function creatVm {
