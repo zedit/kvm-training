@@ -1,13 +1,13 @@
 #!/bin/bash
 
-def_link="https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img"
-def_img="/home/dmitry/projects/kvm-training/xenial.img"
-def_rsa_file="/home/dmitry/.ssh/id_rsa.pub"
+def_link="https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-amd64.img"
+def_img="$(pwd)/bionic.img"
+def_rsa_file="/home/$(whoami)/.ssh/id_rsa.pub"
 VM_NAME="${1}"
 SSH_PUBLIC_KEY="${3:-$def_rsa_file}"
 IMG_LINK="${2:-$def_link}"
 DIR_NAME="/var/lib/libvirt/images/${VM_NAME}"
-CHECK_SUM="99e73c2c09cad6a681b2d372c37f2e11"
+CHECK_SUM="5bc913137d3bd58c02fe336914f5d5a0"
 TEMPLATE_FILE="templates/user-data.template"
 
 function downloadImg {
@@ -22,7 +22,8 @@ function downloadImg {
      qemu-img resize ${DIR_NAME}/${VM_NAME}.img +${HDD}G
    else
      if [ ! -f "${DIR_NAME}/${VM_NAME}".img ]; then
-       wget -O ${DIR_NAME}/${VM_NAME}.img "${1}"
+       wget -O ${def_img} $def_link
+       cp "${def_img}" ${DIR_NAME}/${VM_NAME}.img
        qemu-img resize ${DIR_NAME}/${VM_NAME}.img +${HDD}G
      else 
        local existing_file_check_sum="$(md5sum -b ${DIR_NAME}/${VM_NAME}.img|awk '{print$1}')"
